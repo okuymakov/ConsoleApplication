@@ -3,16 +3,13 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat """
-                Build.cmd
-                """
+                bat 'Build.cmd'
+                
             }
         }
         stage('tests') {
             steps {
-                bat """
-                RunTests.cmd
-                """
+                bat 'RunTests.cmd'
             }
         }
     }
