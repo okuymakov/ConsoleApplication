@@ -15,7 +15,7 @@ pipeline {
         stage('backup') {
             steps {
                 bat 'Publish.cmd'
-                zip zipFile: '''"CalcApp ${env.BUILD_NUMBER}".zip''', archive: false, dir: 'CalculationApp/bin/Release/netcoreapp3.1/publish'
+                zip zipFile: "'CalcApp ${env.BUILD_NUMBER}'.zip", archive: false, dir: 'CalculationApp/bin/Release/netcoreapp3.1/publish'
                 archiveArtifacts artifacts: 'CalcApp.zip', fingerprint: true, onlyIfSuccessful: true           
             }
         }
@@ -25,8 +25,8 @@ pipeline {
                 DEPLOY_PATH = "C:/Deploy"
             }
             steps {
-                bat 'xcopy /Y /s "CalcApp ${env.BUILD_NUMBER}".zip "${DEPLOY_PATH}" /D'
-                unzip zipFile: '"${DEPLOY_PATH}"/"CalcApp ${env.BUILD_NUMBER}".zip', dir: "${DEPLOY_PATH}"                       
+                bat "xcopy /Y /s 'CalcApp ${env.BUILD_NUMBER}'.zip '${DEPLOY_PATH}' /D"
+                unzip zipFile: "'${DEPLOY_PATH}'/'CalcApp ${env.BUILD_NUMBER}'.zip", dir: '${DEPLOY_PATH}'                       
             }
         }
     }
