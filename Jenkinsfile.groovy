@@ -1,13 +1,9 @@
 pipeline {
     agent any
-    environment {
-     path = "C:/Deploy"
-   }
     stages {
         stage('build') {
             steps {
-                bat 'Build.cmd'
-                
+                bat 'Build.cmd'         
             }
         }
         stage('tests') {
@@ -25,9 +21,12 @@ pipeline {
         }
         
         stage('deploy') {
+            environment {
+                DEPLOY_PATH = "C:/Deploy"
+            }
             steps {
-                bat 'xcopy /Y /s "CalcApp ${env.BUILD_NUMBER}".zip "${path}" /D'
-                unzip zipFile: '"${path}"/"CalcApp ${env.BUILD_NUMBER}".zip', dir: "${path}"                       
+                bat 'xcopy /Y /s "CalcApp ${env.BUILD_NUMBER}".zip "${DEPLOY_PATH}" /D'
+                unzip zipFile: '"${DEPLOY_PATH}"/"CalcApp ${env.BUILD_NUMBER}".zip', dir: "${DEPLOY_PATH}"                       
             }
         }
     }
