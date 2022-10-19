@@ -16,7 +16,8 @@ pipeline {
         stage('backup') {
             steps {
                 bat 'Publish.cmd'
-                archiveArtifacts allowEmptyArchive: true, artifacts: 'bin/Release/netcoreapp3.1/publish/**/*.*', caseSensitive: false, followSymlinks: false, onlyIfSuccessful: true
+                zip zipFile: 'CalcApp.zip', archive: false, dir: 'bin/Release/netcoreapp3.1/publish'
+                archiveArtifacts artifacts: 'CalcApp.zip', fingerprint: true           
             }
         }
     }
