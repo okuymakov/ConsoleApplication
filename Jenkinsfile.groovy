@@ -23,7 +23,7 @@ pipeline {
         
         stage('deploy') {
             steps {
-                def path = 'C:/Deploy'
+                path = "C:/Deploy"
                 bat 'xcopy /Y /s "CalcApp ${env.BUILD_NUMBER}".zip "${path}" /D'
                 unzip zipFile: '"${path}"/"CalcApp ${env.BUILD_NUMBER}".zip', dir: "${path}"                       
             }
