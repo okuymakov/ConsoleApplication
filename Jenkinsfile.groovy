@@ -12,5 +12,12 @@ pipeline {
                 bat 'RunTests.cmd'
             }
         }
+        
+        stage('backup') {
+            steps {
+                bat 'Publish.cmd'
+                archiveArtifacts allowEmptyArchive: true, artifacts: 'CalcApp/bin/Release/netcoreapp3.1/publish/**', caseSensitive: false, followSymlinks: false, onlyIfSuccessful: true
+            }
+        }
     }
 }
